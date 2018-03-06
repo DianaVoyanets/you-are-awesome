@@ -11,7 +11,7 @@ const createProtoMagicObject = () => {
     return magicObj;
 };
 const incrementor = () => {
-    if (this.value === undefined) {
+    if (!this.value) {
         this.value = 0;
     }
 
@@ -20,7 +20,16 @@ const incrementor = () => {
     
     return this.incrementor;
 };
-const asyncIncrementor = async () => await incrementor();
+
+var asyncValue = 0;
+const asyncIncrementor = () => {
+    var promise = new Promise((resolve) => {
+        asyncValue++;
+        return resolve(asyncValue);
+    });
+
+    return promise;
+};
 const createIncrementer = () => {
     var count = 0;
 
@@ -33,7 +42,15 @@ const createIncrementer = () => {
     return incrementor();
 };
 // return same argument not earlier than in one second, and not later, than in two
-const returnBackInSecond = () => {};
+const returnBackInSecond = (param) => {
+    var promise = new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(param);
+        }, 1000);
+    });
+
+    return promise;
+};
 const getDeepPropertiesCount = (obj) => {
     var count = 0;
 
